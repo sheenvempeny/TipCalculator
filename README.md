@@ -22,6 +22,8 @@ The following **optional** features are implemented:
 
 The following **additional** features are implemented:
     [*] Added min,mid and max value in settings and it's stored in user defaults'
+    [*] Saving the tip selection index in userdefualts.
+
 - [ ] List anything else that you can get done to improve the app functionality!
 
 ## Video Walkthrough 
