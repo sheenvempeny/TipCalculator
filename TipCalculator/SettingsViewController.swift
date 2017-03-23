@@ -14,6 +14,9 @@ class SettingsViewController: UIViewController {
      @IBOutlet weak var txtMid:UITextField!
      @IBOutlet weak var txtMax:UITextField!
     
+    @IBOutlet weak var lblMin:UILabel!
+    @IBOutlet weak var lblMid:UILabel!
+    @IBOutlet weak var lblMax:UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,7 +24,25 @@ class SettingsViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
 
-       
+    func updateUI(){
+        
+        self.view.backgroundColor = UIColor.darkGray
+        self.lblMax.textColor = UIColor.white
+        self.lblMin.textColor = UIColor.white
+        self.lblMid.textColor = UIColor.white
+        self.txtMax.textColor = UIColor.white
+        self.txtMin.textColor = UIColor.white
+        self.txtMid.textColor = UIColor.white
+
+    }
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.updateUI()
+        
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
          self.load()
@@ -31,13 +52,13 @@ class SettingsViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    @IBAction func done(button: UIButton) {
+    @IBAction func done(button: UIBarButtonItem) {
         // this is intentionally blank
         self.save()
         self.dismiss(animated: true, completion: nil)
     }
 
-    @IBAction func close(button: UIButton) {
+    @IBAction func close(button: UIBarButtonItem) {
         // this is intentionally blank
          self.dismiss(animated: true, completion: nil)
     }

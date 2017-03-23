@@ -9,6 +9,18 @@
 import Foundation
 import UIKit
 
+extension Float {
+    var asLocaleCurrency:String {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .currency
+        formatter.locale = NSLocale.current
+        let num:NSNumber = NSNumber(value: self)
+        return formatter.string(from: num)!
+    }
+    
+    
+}
+
 class TipUpdator:NSObject {
     
     weak var txtTip:UILabel!
@@ -29,15 +41,20 @@ class TipUpdator:NSObject {
     func updateValues(){
         
         var amount:Float = 0
-        if(self.txtFieldBill.text != ""){
-           amount = Float(self.txtFieldBill.text!)!
+        var txtBill:String? = self.txtFieldBill.text
+        if(txtBill != nil &&  txtBill != "" && (txtBill?.characters.count)! > 1){
+            
+            let billAmnt:Float? = Float((txtBill)!)
+            if(billAmnt != nil){
+                amount = billAmnt!
+            }
         }
         
         let tipVal = SettingsController.sharedInstance.tipValue()
         let newTip = (amount * Float(tipVal)/100.0)
-        txtTip.text = String(newTip)
+        txtTip.text = newTip.asLocaleCurrency
         let newBill = amount + newTip
-        txtNewBill.text = String(newBill)
+        txtNewBill.text = newBill.asLocaleCurrency
         
     }
     

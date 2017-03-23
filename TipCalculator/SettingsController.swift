@@ -19,6 +19,54 @@ class SettingsController{
         return instance
     }()
     
+    private func saveAppQuitTime(){
+        
+        let defaults:UserDefaults = UserDefaults.standard
+        defaults.set(NSDate(), forKey: "appQuitDate")
+    }
+    
+    private func appQuitTime() -> NSDate?{
+        
+        let defaults:UserDefaults = UserDefaults.standard
+        let date:NSDate? = defaults.value(forKey: "appQuitDate") as? NSDate
+        return date
+    }
+    
+    private func isAppQuitInTenMin() -> Bool{
+    
+    let otherDate = self.appQuitTime()
+        if(otherDate == nil){
+            return false
+        }
+        
+    var intervall:Int = NSDate().compare(otherDate as! Date).rawValue
+    intervall = intervall/60
+        
+        if(intervall <= 10){
+            return true
+        }
+        
+        return false
+    }
+    
+    func saveLastBillAmount(amount:Float){
+        
+        self.saveAppQuitTime()
+        let defaults:UserDefaults = UserDefaults.standard
+        defaults.set(amount, forKey: "lastBillAmount")
+    }
+    
+    func lastBillAmount() -> Float {
+        
+        if(self.isAppQuitInTenMin() == false){
+            return 0.0
+        }
+        
+        let defaults:UserDefaults = UserDefaults.standard
+        let midVal = defaults.float(forKey: "lastBillAmount")
+        return midVal
+    }
+    
     func tipValue() -> Int {
         
         var returnVal:Int = 0
